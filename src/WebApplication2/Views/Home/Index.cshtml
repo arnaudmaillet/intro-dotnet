@@ -1,8 +1,35 @@
-﻿@{
+﻿@model IEnumerable<DataProvider.Person>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Age</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in Model)
+            {
+                <tr>
+                    <td>@person.FirstName</td>
+                    <td>@person.LastName</td>
+                    <td>@person.Age</td>
+
+                    <td>
+                        @Html.ActionLink("Modifier", "Modifier", new { id = person.PersonId }) |
+                        @Html.ActionLink("Détails", "Details", new { id = person.PersonId }) |
+                        @Html.ActionLink("Supprimer", "Supprimer", new { id = person.PersonId})
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
