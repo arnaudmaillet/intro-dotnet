@@ -6,11 +6,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication2.Models;
+using DataProvider;
 
 namespace WebApplication2.Controllers
 {
     public class HomeController : Controller
     {
+        public PersonRepository data = new PersonRepository();
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -20,7 +23,13 @@ namespace WebApplication2.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(data.GetAll());
+        }
+
+        public IActionResult Delete(String personid)
+        {
+            data.Delete(Guid.Parse(personid));
+            return Redirect("/");
         }
 
         public IActionResult Privacy()
