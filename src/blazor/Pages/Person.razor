@@ -1,0 +1,53 @@
+﻿@page "/person"
+
+@using DataProvider;
+
+<PageTitle>Person</PageTitle>
+
+<h1>Person</h1>
+
+<table>
+    <tr>
+        <th>PersonId</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Age</th>
+    </tr>
+    <tr>
+        <td>
+            <input type="text" />
+        </td>
+        <td>
+            <input type="text" />
+        </td>
+        <td>
+            <input type="text" />
+        </td>
+        <td>
+            <input type="text" />
+        </td>
+        <td>
+            <button>add</button>
+        </td>
+        <td>
+            <button>Update</button>
+        </td>
+    </tr>
+    @foreach (var person in new PersonRepository().GetAll())
+    {
+        <tr>
+            <td>@person.FirstName</td>
+            <td>@person.LastName</td>
+            <td>@person.Age</td>
+            <td>
+                @using (Html.BeginForm("Delete", "Home", FormMethod.Post))
+                {
+                    <input type="hidden" name="personid" value="@person.PersonId" />
+                    <input type="submit" value="Delete" />
+                }
+
+            </td>
+        </tr>
+    }
+</table>
+
